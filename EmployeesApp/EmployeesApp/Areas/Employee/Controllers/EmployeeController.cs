@@ -82,11 +82,11 @@ namespace EmployeesApp.Areas.Employees.Controllers
 
         }
 
-        public async Task<JsonResult> GetByIdAsync(int id)
-        {
-            Employee employee = await _employeesRepository.FindByIdAsync(id);
-            return Json(employee);
-        }
+        //public async Task<JsonResult> GetByIdAsync(int id)
+        //{
+        //    Employee employee = await _employeesRepository.FindByIdAsync(id);
+        //    return Json(employee);
+        //}
 
         [HttpPost("Edit")]
         public async Task<IActionResult> Edit(Employee employee)

@@ -9,7 +9,7 @@ function getEmployeesAsync() {
         contentType: "application/json; charset=utf-8",
         success: function (employees) {
 
-            $.each(employees, function (employee) {
+            $.each(employees, function (i, employee) {
                 $("#employeeTable").append(`<tr>
                     <td>${employee.id}</td>
                     <td>${employee.name}</td>
