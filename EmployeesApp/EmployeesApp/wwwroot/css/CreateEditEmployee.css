@@ -1,0 +1,34 @@
+﻿.emp-header {
+    display: inline-block;
+    width: 100%;
+    color: #495057;
+    margin: 30px auto;
+}
+
+.wrapper {
+    width: 100%;
+    display: inline;
+}
+
+.avatar-img {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.avatar-btn {
+    margin: 15px auto;
+}
+
+.image-sec,
+.button-sec {
+    display: flex;
+}
+
+.search-input,
+.search-btn {
+    display: inline-flex;
+}
+
+.create-sec {
+    margin: 0 30px;
+}

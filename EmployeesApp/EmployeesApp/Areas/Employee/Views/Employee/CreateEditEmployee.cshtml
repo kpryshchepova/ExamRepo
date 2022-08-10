@@ -1,0 +1,102 @@
+﻿@model EmployeesApp.Models.Employee
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmployeeApp</title>
+
+    <link href="~/css/CreateEditEmployee.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="emp-header">
+        @if (@Model == null)
+        {
+            <h2>Create Employee</h2>
+        } else
+        {
+            <h2>Edit Employee</h2>
+        }
+    </div>
+    <div class="row">
+        <div class="col-4 avatar-sec">
+            <div class="image-sec">
+                <img class="rounded-circle avatar-img" src="~/img/avatar.jpg" alt="Avatar">
+            </div>
+            <div class="button-sec">
+                <button type="button" class="btn btn-primary avatar-btn">Select avatar</button>
+            </div>
+        </div>
+                
+        <div class="col-8">
+            @if (@Model == null)
+            {
+                <form method="post" asp-action="Create" asp-controller="Employee" class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input required type="text" class="form-control" asp-for="Name">
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Age" class="form-label">Age</label>
+                    <input required type="number" min="1" class="form-control" asp-for="Age">
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Speciality" class="form-label">Speciality</label>
+                    <input required type="text" class="form-control" asp-for="Speciality">
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EmployementDate" class="form-label">Employement Date</label>
+                    <input required type="date" class="form-control" asp-for="EmployementDate">
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+                <div class="col-md-2">
+                    <a asp-action="EmployeeList" type="button" class="btn btn-outline-primary">Cancel</a>
+                </div>
+            </form>
+            } else
+            {
+                <form method="post" asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input required type="text" class="form-control" asp-for="Name">
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Age" class="form-label">Age</label>
+                    <input required type="number" min="1" class="form-control" asp-for="Age">
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Speciality" class="form-label">Speciality</label>
+                    <input required type="text" class="form-control" asp-for="Speciality">
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EmployementDate" class="form-label">Employement Date</label>
+                    <input required type="date" class="form-control" asp-for="EmployementDate">
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+
+                <div class="col-md-2">
+                    <a asp-action="EmployeeList" type="button" class="btn btn-outline-primary">Cancel</a>
+                </div>
+            </form>
+            }
+            
+        </div>
+    </div>
+     
+
+</body>
+</html>

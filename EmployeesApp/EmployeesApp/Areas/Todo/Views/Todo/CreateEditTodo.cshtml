@@ -1,0 +1,142 @@
+﻿@using EmployeesApp.Models
+@model EmployeesApp.Models.Todo
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EmployeeApp</title>
+
+        <link href="~/css/CreateEditTodo.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="emp-header">
+        @if (@Model == null)
+        {
+            <h2>Create ToDo</h2>
+        } else
+        {
+            <h2>Edit ToDo</h2>
+        }
+        </div>
+        <div class="row">    
+            <div class="col-8">
+            @if (@Model == null)
+            {
+                <form method="post" asp-action="Create" asp-controller="Todo" class="row g-3">
+                    <div class="col-md-6">
+                        <select required class="form-select" aria-label="EmployeeId" asp-for="EmployeeId">
+                            @foreach (var employee in @ViewData["Employees"] as List<Employee>)
+                            {
+                                <option value="@employee.Id">@employee.Name - @employee.Speciality</option>
+                            }
+                            </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="IsCompleted">
+                            <label class="form-check-label" for="flexSwitchCheck">Completed</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputName" class="form-label">Name</label>
+                        <input required type="text" class="form-control" asp-for="Name">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputDescription" class="form-label">Description</label>
+                        <input required type="text" class="form-control" asp-for="Description">
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a asp-action="TodoList" type="button" class="btn btn-outline-primary">Cancel</a>
+                    </div>
+                </form>
+            } else
+            {
+                <form method="post" asp-action="Edit" asp-controller="Todo" asp-route-id="@Model.Id" class="row g-3">
+                    <div class="col-md-6">
+                        <select required class="form-select" asp-for="EmployeeId">
+                            @foreach (var employee in @ViewData["Employees"] as List<Employee>)
+                            {
+                                @if (@employee.Id.Equals(@ViewData["CurrentEmployeeId"]))
+                                {
+                                    <option selected value="@employee.Id">@employee.Name - @employee.Speciality</option>
+                                } else
+                                {
+                                    <option value="@employee.Id">@employee.Name - @employee.Speciality</option>
+                                }
+                                
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="IsCompleted">
+                            <label class="form-check-label" for="flexSwitchCheck">Completed</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputName" class="form-label">Name</label>
+                        <input required type="text" class="form-control" asp-for="Name">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputDescription" class="form-label">Description</label>
+                        <input required type="text" class="form-control" asp-for="Description">
+                    </div>  
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a asp-action="TodoList" type="button" class="btn btn-outline-primary">Cancel</a>
+                    </div>
+                </form>
+            }
+                @*<form asp-controller="Todo" asp-action="Todo" class="row g-3">
+                    <div class="col-md-6">
+                        <select required class="form-select" aria-label="Employee" asp-for="Employee">
+                        @foreach (var employee in @ViewData["Employees"] as List<Employee>)
+                        {
+                            <option value="@employee.Id">@employee.Name - @employee.Speciality</option>
+                        }
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="IsCompleted">
+                            <label class="form-check-label" for="flexSwitchCheck">Completed</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputName" class="form-label">Name</label>
+                        <input required type="text" class="form-control" asp-for="Name">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputDescription" class="form-label">Description</label>
+                        <input required type="text" class="form-control" asp-for="Description">
+                    </div>  
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>*@
+            </div>
+        </div>
+    </body>
+</html>

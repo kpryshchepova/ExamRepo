@@ -1,0 +1,74 @@
+﻿@*@model IEnumerable<EmployeesApp.Models.Employee>*@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EmployeeApp</title>
+
+        <link href="~/css/Employee.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="emp-header">
+            <h2>Employees List</h2>
+        </div>
+                
+        <div class="wrapper">
+            <form asp-action="EmployeeFilteredList" asp-controller="Employee" class="row">
+                <div class="col-4">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="SearchString">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+                <div class="col-2">
+                    <a asp-action="EmployeeList" method="post" class="btn btn-primary" type="button">Clear Filter</a>
+                </div>
+                <div class="col-4">
+                    <a class="btn btn-primary create-btn" type="button" asp-action="Create" asp-controller="Employee">Create Employee</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Speciality</th>
+                        <th scope="col">Employement Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="employeeTable">
+                @*@foreach (var employee in Model)
+                {
+                    <tr>
+                        <th scope="row">@employee.Id</th>
+                        <td>@employee.Name</td>
+                        <td>@employee.Age</td>
+                        <td>@employee.Speciality</td>
+                        <td>@employee.EmployementDate.ToShortDateString()</td>
+                        <td>
+                            <button class="btn btn-outline-primary table-btn" type="button">View Tasks</button>
+                            <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-outline-success table-btn" type="button">Edit</a>
+                            <form class="delete-form" asp-controller="Employee" asp-action="Delete" method="post" asp-route-id="@employee.Id">
+                                <button class="btn btn-outline-danger table-btn" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }*@
+                
+                </tbody>
+            </table>
+        </div>
+     
+
+    </body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/employeeList.js"></script>
+</html>

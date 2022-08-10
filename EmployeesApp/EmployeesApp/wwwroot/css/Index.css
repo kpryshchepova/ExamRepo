@@ -1,0 +1,49 @@
+﻿a {
+    color: aliceblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: aliceblue;
+}
+
+.btn-outline-primary {
+    background-color: aliceblue;
+}
+
+.btn-outline-light:hover {
+    background-color: aliceblue;
+    color: blue; 
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+.navbar-collapse {
+    margin: 0 10px 0 40px;
+}
+
+.btn {
+    margin: 0 5px;
+}
+
+.navbar-brand {
+    margin: 0 10px;
+}
+
+.container {
+    width: 100%;
+    margin: 50px auto;
+}
+
+.welcome-msg {
+    color: #495057;
+    font-size: 40px;
+    margin: auto;
+}
+
+.welcome-container {
+    display: flex;
+    width: 100%;
+}
+

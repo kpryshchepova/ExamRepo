@@ -1,0 +1,90 @@
+﻿@model IEnumerable<EmployeesApp.Models.Todo>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmployeeApp</title>
+
+    <link href="~/css/Todo.css" rel="stylesheet" />
+</head>
+    <body>
+        <div class="emp-header">
+            <h2>ToDo List</h2>
+        </div>
+                
+        <div class="wrapper">
+            <form asp-action="TodoFilteredList" asp-controller="Todo" class="row">
+                <div class="col-4">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="SearchString">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+                <div class="col-2">
+                    <a asp-action="TodoList" method="post" class="btn btn-primary" type="button">Clear Filter</a>
+                </div>
+                <div class="col-4">
+                    <a class="btn btn-primary create-btn" type="button" asp-action="Create" asp-controller="Todo">Create Todo</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Employee Name - Speciality</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Completed</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @foreach (var todo in Model)
+                {
+                    <tr>
+                        <th scope="row">@todo.Id</th>
+
+                        @foreach (var employee in @ViewBag.Employees)
+                        {
+                            var count = 0;
+                            @if (todo.EmployeeId == employee.Id)
+                            {
+                                <td>@employee.Name - @employee.Speciality</td>
+                                count++;
+                                break;
+                            }
+                            else if (count == @ViewBag.Employees.Count)
+                            {
+                                <td>Unknown</td>
+                            }
+                        }
+                        <td>@todo.Name</td>
+                        <td>@todo.Description</td>
+                        @if (@todo.IsCompleted)
+                        {
+                            <td>Yes</td>
+                        } else
+                        {
+                            <td>No</td>
+                        }
+
+                        <td>
+                            <a asp-controller="Todo" asp-action="Edit" asp-route-id="@todo.Id" class="btn btn-outline-success table-btn" type="button">Edit</a>
+                            <form class="delete-form" asp-controller="Todo" asp-action="Delete" method="post" asp-route-id="@todo.Id">
+                                <button class="btn btn-outline-danger table-btn" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                                    
+                }
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

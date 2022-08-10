@@ -1,0 +1,19 @@
+﻿.emp-header {
+    display: inline-block;
+    width: 100%;
+    color: #495057;
+    margin: 30px auto;
+}
+
+.wrapper {
+    width: 100%;
+    display: inline;
+}
+
+.form-switch {
+    margin: 5px 30px;
+}
+
+.form-check-label {
+    margin: auto 20px;
+}
