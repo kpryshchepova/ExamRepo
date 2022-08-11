@@ -60,38 +60,25 @@ namespace EmployeesApp.Areas.Employees.Controllers
             
         }
 
-
         [Route("Edit")]
-        [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            try
-            {
-                if (id != null)
-                {
-                    Employee? employee = await _employeesRepository.FindByIdAsync(id);
-                    if (employee != null) return View("CreateEditEmployee", employee);
-                    //------------TODO ERROR-------------
-                    else return NotFound();
-                }
-                return View();
-            } catch
-            {//------------TODO ERROR-------------
-                return NotFound();
-            }
 
+        public IActionResult Edit(int? id)
+        {
+            ViewBag.Id = id;
+            return View("CreateEditEmployee");
         }
 
-        //public async Task<JsonResult> GetByIdAsync(int id)
-        //{
-        //    Employee employee = await _employeesRepository.FindByIdAsync(id);
-        //    return Json(employee);
-        //}
+        [Route("GetByIdAsync")]
+        public async Task<JsonResult> GetByIdAsync(int id)
+        {
+            Employee employee = await _employeesRepository.FindByIdAsync(id);
+            return Json(employee);
+        }
 
         [HttpPost("Edit")]
         public async Task<IActionResult> Edit(Employee employee)
         {
-            return await base.Create(employee, _employeesRepository, nameof(EmployeeList));
+            return await base.Edit(employee, _employeesRepository, nameof(EmployeeList));
         }
 
         [HttpPost("Delete/{id}")]

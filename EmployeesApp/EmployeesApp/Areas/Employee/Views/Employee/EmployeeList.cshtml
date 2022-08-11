@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<EmployeesApp.Models.Employee>*@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
     <head>
@@ -45,23 +44,6 @@
                 </thead>
 
                 <tbody id="employeeTable">
-                @*@foreach (var employee in Model)
-                {
-                    <tr>
-                        <th scope="row">@employee.Id</th>
-                        <td>@employee.Name</td>
-                        <td>@employee.Age</td>
-                        <td>@employee.Speciality</td>
-                        <td>@employee.EmployementDate.ToShortDateString()</td>
-                        <td>
-                            <button class="btn btn-outline-primary table-btn" type="button">View Tasks</button>
-                            <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-outline-success table-btn" type="button">Edit</a>
-                            <form class="delete-form" asp-controller="Employee" asp-action="Delete" method="post" asp-route-id="@employee.Id">
-                                <button class="btn btn-outline-danger table-btn" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }*@
                 
                 </tbody>
             </table>

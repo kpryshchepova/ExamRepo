@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="emp-header">
-        @if (@Model == null)
+        @if (@ViewBag.Id == null)
         {
             <h2>Create Employee</h2>
         } else
@@ -30,27 +30,27 @@
         </div>
                 
         <div class="col-8">
-            @if (@Model == null)
+            @if (@ViewBag.Id == null)
             {
                 <form method="post" asp-action="Create" asp-controller="Employee" class="row g-3">
                 <div class="col-md-6">
                     <label asp-for="Name" class="form-label">Name</label>
-                    <input required type="text" class="form-control" asp-for="Name">
+                    <input required type="text" asp-for="Name" class="form-control">
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Age" class="form-label">Age</label>
-                    <input required type="number" min="1" class="form-control" asp-for="Age">
+                    <input required type="number" min="1" asp-for="Age" class="form-control">
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Speciality" class="form-label">Speciality</label>
-                    <input required type="text" class="form-control" asp-for="Speciality">
+                    <input required type="text" asp-for="Speciality" class="form-control">
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="EmployementDate" class="form-label">Employement Date</label>
-                    <input required type="date" class="form-control" asp-for="EmployementDate">
+                    <input required type="date" asp-for="EmployementDate" class="form-control">
                 </div>
 
                 <div class="col-md-2">
@@ -63,29 +63,29 @@
             </form>
             } else
             {
-                <form method="post" asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="row g-3">
+                <form method="post" asp-action="Edit" asp-controller="Employee" asp-route-id="@ViewBag.Id" class="row g-3">
                 <div class="col-md-6">
                     <label asp-for="Name" class="form-label">Name</label>
-                    <input required type="text" class="form-control" asp-for="Name">
+                    <input id="inputName" required type="text" asp-for="Name" class="form-control">
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Age" class="form-label">Age</label>
-                    <input required type="number" min="1" class="form-control" asp-for="Age">
+                    <input id="inputAge" required type="number" min="1" asp-for="Age" class="form-control">
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Speciality" class="form-label">Speciality</label>
-                    <input required type="text" class="form-control" asp-for="Speciality">
+                    <input id="inputSpeciality" required type="text" asp-for="Speciality" class="form-control">
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="EmployementDate" class="form-label">Employement Date</label>
-                    <input required type="date" class="form-control" asp-for="EmployementDate">
+                    <input id="inputEmployementDate" required type="date" asp-for="EmployementDate" class="form-control">
                 </div>
 
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button id="btnUpdate" type="submit" class="btn btn-primary">Update</button>
                 </div>
 
                 <div class="col-md-2">
@@ -97,6 +97,7 @@
         </div>
     </div>
      
-
 </body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/employeeEdit.js"></script>
 </html>
