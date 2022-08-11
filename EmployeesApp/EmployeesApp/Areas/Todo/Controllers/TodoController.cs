@@ -19,18 +19,17 @@ namespace EmployeesApp.Areas.Todo.Controllers
         }
 
         [Route("TodoList")]
-        public async Task<IActionResult> TodoList()
+        public IActionResult TodoList()
         {
-            try
-            {
-                ViewBag.Employees = await _employeesRepository.GetAllAsync();
-                var todos = await _todosRepository.GetAllAsync();
-                return View(todos);
-            }
-            catch
-            {//------------TODO ERROR-------------
-                return NotFound();
-            }
+            return View();
+        }
+
+        [Route("GetAllTodosAsync")]
+        public async Task<JsonResult> GetAllTodosAsync()
+        {
+            IEnumerable<Models.Todo> todos = await _todosRepository.GetAllAsync();
+            IEnumerable<Employee> employees = await _employeesRepository.GetAllAsync();
+            return Json(new { todos, employees });
         }
 
         [Route("Create")]
@@ -48,31 +47,17 @@ namespace EmployeesApp.Areas.Todo.Controllers
         }
 
         [Route("Edit")]
-        [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            try
-            {
-                if (id != null)
-                {
-                    Models.Todo? todo = await _todosRepository.FindByIdAsync(id);
-                    if (todo != null)
-                    {
-                        var employees = await _employeesRepository.GetAllAsync();
-                        ViewData["Employees"] = employees;
-                        ViewData["CurrentEmployeeId"] = employees.FirstOrDefault(e => e.Id == todo.EmployeeId)?.Id;
-                        return View("CreateEditTodo", todo);
-                    }
-                    
-                }
-                //------------TODO ERROR-------------
-                return NotFound();
-            }
-            catch
-            {//------------TODO ERROR-------------
-                return NotFound();
-            }
+            ViewBag.Id = id;
+            return View("CreateEditTodo");
+        }
 
+        [Route("GetByIdAsync")]
+        public async Task<JsonResult> GetByIdAsync(int id)
+        {
+            Models.Todo todo = await _todosRepository.FindByIdAsync(id);
+            return Json(todo);
         }
 
         [HttpPost("Edit")]
@@ -81,7 +66,7 @@ namespace EmployeesApp.Areas.Todo.Controllers
             return await base.Edit(todo, _todosRepository, nameof(TodoList));
         }
 
-        [HttpPost("Delete/{id}")]
+        [Route("Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             try

@@ -2,11 +2,11 @@
     var id = new URLSearchParams(window.location.search).get("id");
     if (id) {
         disableElements();
-        getEmployeeAsync(id);
+        getTodoAsync(id);
     }
 })
 
-function getEmployeeAsync(id) {
+function getTodoAsync(id) {
     $.ajax({
         type: "GET",
         url: "/Employee/GetByIdAsync",

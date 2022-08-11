@@ -19,10 +19,7 @@ function getEmployeesAsync() {
                     <td>
                         <button class="btn btn-outline-primary table-btn" type="button">View Tasks</button>
                         <a href="/Employee/Edit?id=${employee.id}" class="btn btn-outline-success table-btn" type="button">Edit</a>
-                        <a asp-controller="Employee" asp-action="Edit" asp-route-id="${employee.id}" class="btn btn-outline-success table-btn" type="button">Edit2</a>
-                        <form class="delete-form" asp-controller="Employee" asp-action="Delete" method="post" asp-route-id="${employee.id}">
-                            <button class="btn btn-outline-danger table-btn" type="submit">Delete</button>
-                        </form>
+                        <a href="/Employee/Delete?id=${employee.id}" class="btn btn-outline-danger table-btn">Delete</a>
                     </td>
                 </tr>`)
             })

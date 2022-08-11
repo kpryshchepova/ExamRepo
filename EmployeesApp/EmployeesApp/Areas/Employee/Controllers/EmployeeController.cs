@@ -81,7 +81,7 @@ namespace EmployeesApp.Areas.Employees.Controllers
             return await base.Edit(employee, _employeesRepository, nameof(EmployeeList));
         }
 
-        [HttpPost("Delete/{id}")]
+        [Route("Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             try

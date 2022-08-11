@@ -1,5 +1,4 @@
-﻿@model IEnumerable<EmployeesApp.Models.Todo>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -44,47 +43,12 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                @foreach (var todo in Model)
-                {
-                    <tr>
-                        <th scope="row">@todo.Id</th>
+                <tbody id="todoTable">
 
-                        @foreach (var employee in @ViewBag.Employees)
-                        {
-                            var count = 0;
-                            @if (todo.EmployeeId == employee.Id)
-                            {
-                                <td>@employee.Name - @employee.Speciality</td>
-                                count++;
-                                break;
-                            }
-                            else if (count == @ViewBag.Employees.Count)
-                            {
-                                <td>Unknown</td>
-                            }
-                        }
-                        <td>@todo.Name</td>
-                        <td>@todo.Description</td>
-                        @if (@todo.IsCompleted)
-                        {
-                            <td>Yes</td>
-                        } else
-                        {
-                            <td>No</td>
-                        }
-
-                        <td>
-                            <a asp-controller="Todo" asp-action="Edit" asp-route-id="@todo.Id" class="btn btn-outline-success table-btn" type="button">Edit</a>
-                            <form class="delete-form" asp-controller="Todo" asp-action="Delete" method="post" asp-route-id="@todo.Id">
-                                <button class="btn btn-outline-danger table-btn" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                                    
-                }
                 </tbody>
             </table>
         </div>
     </body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/todoList.js"></script>
 </html>

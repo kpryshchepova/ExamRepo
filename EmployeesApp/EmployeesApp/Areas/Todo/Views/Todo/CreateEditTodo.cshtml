@@ -13,7 +13,7 @@
     </head>
     <body>
         <div class="emp-header">
-        @if (@Model == null)
+        @if (@ViewBag.Id == null)
         {
             <h2>Create ToDo</h2>
         } else
@@ -23,7 +23,7 @@
         </div>
         <div class="row">    
             <div class="col-8">
-            @if (@Model == null)
+            @if (@ViewBag.Id  == null)
             {
                 <form method="post" asp-action="Create" asp-controller="Todo" class="row g-3">
                     <div class="col-md-6">
@@ -62,10 +62,10 @@
                 </form>
             } else
             {
-                <form method="post" asp-action="Edit" asp-controller="Todo" asp-route-id="@Model.Id" class="row g-3">
+                <form method="post" asp-action="Edit" asp-controller="Todo" asp-route-id="@ViewBag.Id" class="row g-3">
                     <div class="col-md-6">
-                        <select required class="form-select" asp-for="EmployeeId">
-                            @foreach (var employee in @ViewData["Employees"] as List<Employee>)
+                        <select required id="inputEmployee" class="form-select" asp-for="EmployeeId">
+                           @* @foreach (var employee in @ViewData["Employees"] as List<Employee>)
                             {
                                 @if (@employee.Id.Equals(@ViewData["CurrentEmployeeId"]))
                                 {
@@ -75,29 +75,29 @@
                                     <option value="@employee.Id">@employee.Name - @employee.Speciality</option>
                                 }
                                 
-                            }
+                            }*@
                         </select>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" asp-for="IsCompleted">
+                            <input id="inputIsCompleted" class="form-check-input" type="checkbox" asp-for="IsCompleted">
                             <label class="form-check-label" for="flexSwitchCheck">Completed</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <label for="inputName" class="form-label">Name</label>
-                        <input required type="text" class="form-control" asp-for="Name">
+                        <input required id="inputName" type="text" class="form-control" asp-for="Name">
                     </div>
 
                     <div class="col-md-6">
                         <label for="inputDescription" class="form-label">Description</label>
-                        <input required type="text" class="form-control" asp-for="Description">
+                        <input required id="inputDescription" type="text" class="form-control" asp-for="Description">
                     </div>  
 
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button id="btnUpdate" type="submit" class="btn btn-primary">Update</button>
                     </div>
 
                     <div class="col-md-2">
@@ -139,4 +139,6 @@
             </div>
         </div>
     </body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/todoEdit.js"></script>
 </html>
