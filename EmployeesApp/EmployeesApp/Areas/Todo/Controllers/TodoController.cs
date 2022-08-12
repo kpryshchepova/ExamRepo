@@ -26,18 +26,22 @@ namespace EmployeesApp.Areas.Todo.Controllers
         }
 
         [Route("GetAllTodosAsync")]
-        public async Task<JsonResult> GetAllTodosAsync(string txtSearch, int? page)
+        public async Task<JsonResult> GetAllTodosAsync(string txtSearch, int? page, int? employeeId)
         {
             IEnumerable<Models.Todo> todos = await _todosRepository.GetAllAsync();
             IEnumerable<Employee> employees = await _employeesRepository.GetAllAsync();
-
+            if (employeeId > 0)
+            {
+                todos = todos.Where(todo =>
+                    todo.EmployeeId.Equals(employeeId));
+            }
             if (!String.IsNullOrEmpty(txtSearch))
             {
                 todos = todos.Where(todo =>
                     todo.Name.Contains(txtSearch) ||
                     todo.Description.ToString().Contains(txtSearch));
             }
-            if (page <= 0)
+            if (page > 0)
             {
                 page = page;
             }

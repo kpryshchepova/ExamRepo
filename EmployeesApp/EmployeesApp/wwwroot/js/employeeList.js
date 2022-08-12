@@ -10,7 +10,6 @@ function getEmployeesAsync(txtSearch, page) {
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (result) {
-            console.log(result);
             var str = "";
             $.each(result.data, function (index, employee) {
                 str += `<tr>
@@ -20,7 +19,7 @@ function getEmployeesAsync(txtSearch, page) {
                     <td>${employee.speciality}</td>
                     <td>${new Date(employee.employementDate).toLocaleDateString()}</td>
                     <td>
-                        <button class="btn btn-outline-primary table-btn" type="button">View Tasks</button>
+                        <a href="/Todo/TodoList?employeeId=${employee.id}" data-id=${employee.id} class="btn btn-outline-primary table-btn view-task-btn" type="button">View Tasks</a>
                         <a href="/Employee/Edit?id=${employee.id}" class="btn btn-outline-success table-btn" type="button">Edit</a>
                         <a href="/Employee/Delete?id=${employee.id}" class="btn btn-outline-danger table-btn">Delete</a>
                     </td>
@@ -68,3 +67,10 @@ $("#search").click(function () {
     var txtSearch = $(".txtSearch").val();
     txtSearch ? getEmployeesAsync(txtSearch, 1) : getEmployeesAsync(null, 1);
 });
+
+//$("body").on("click", "a .view-task-btn", function (event) {
+//    event.preventDefault();
+//    var id = $(this).attr("data-id");
+//    var txtSearch = $(".txtSearch").val();
+//    txtSearch ? getTodosAsync(txtSearch, 1, id) : getTodosAsync(null, 1, id);
+//});

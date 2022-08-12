@@ -1,16 +1,16 @@
 ﻿$(document).ready(function () {
-    getTodosAsync(null, 1);
+    var employeeId = new URLSearchParams(window.location.search).get("employeeId");
+    employeeId ? getTodosAsync(null, 1, employeeId) : getTodosAsync(null, 1, null);
 })
 
-function getTodosAsync(txtSearch, page) {
+function getTodosAsync(txtSearch, page, employeeId) {
     $.ajax({
         url: "/Todo/GetAllTodosAsync",
         type: "GET",
-        data: { txtSearch: txtSearch, page: page },
+        data: { txtSearch: txtSearch, page: page, employeeId: employeeId },
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (result) {
-            console.log(result);
             var str = "";
             $.each(result.todos, function (index, todo) {
                 var employee = result.employees.find(emp => emp.id == todo.employeeId);
@@ -65,10 +65,10 @@ $("body").on("click", ".pagination li a", function (event) {
     event.preventDefault();
     var page = $(this).attr("data-page");
     var txtSearch = $(".txtSearch").val();
-    txtSearch ? getTodosAsync(txtSearch, page) : getTodosAsync(null, page);
+    txtSearch ? getTodosAsync(txtSearch, page, null) : getTodosAsync(null, page, null);
 });
 
 $("#search").click(function () {
     var txtSearch = $(".txtSearch").val();
-    txtSearch ? getTodosAsync(txtSearch, 1) : getTodosAsync(null, 1);
+    txtSearch ? getTodosAsync(txtSearch, 1, null) : getTodosAsync(null, 1, null);
 });
