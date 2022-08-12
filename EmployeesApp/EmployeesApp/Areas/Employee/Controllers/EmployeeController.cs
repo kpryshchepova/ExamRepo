@@ -11,6 +11,7 @@ namespace EmployeesApp.Areas.Employees.Controllers
     [Route("Employee")]
     public class EmployeeController : BaseController
     {
+        public int pageSize = 5;
         private IRepository<Employee> _employeesRepository;
         public EmployeeController(IRepository<Employee> employeesRepository)
         {
@@ -23,29 +24,50 @@ namespace EmployeesApp.Areas.Employees.Controllers
             return View();
         }
 
-        [Route("GetAllEmployeesAsync")]
-        public async Task<JsonResult> GetAllEmployeesAsync()
+        [Route("GetAllEmployeesListAsync")]
+        public async Task<JsonResult> GetAllEmployeesListAsync()
         {
             IEnumerable<Employee> employees = await _employeesRepository.GetAllAsync();
             return Json(employees);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> EmployeeFilteredList(string? searchString)
-        //{
-        //    string patternDate = "^([0]?[0-9]|[12][0-9]|[3][01])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$";
-        //    var employees = from m in db.Employees
-        //                 select m;
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        employees = employees.Where(employee =>
-        //            employee.Name.Contains(searchString) ||
-        //            employee.Age.ToString().Contains(searchString) ||
-        //            employee.Speciality.Contains(searchString) ||
-        //            (Regex.IsMatch(searchString, patternDate) && employee.EmployementDate == DateTime.Parse(searchString)));
-        //    }
-        //    return View("EmployeeList", await employees.ToListAsync());
-        //}
+        [Route("GetAllEmployeesAsync")]
+        public async Task<JsonResult> GetAllEmployeesAsync(string txtSearch, int? page)
+        {
+            IEnumerable<Employee> employees = await _employeesRepository.GetAllAsync();
+            string patternDate = "^([0]?[0-9]|[12][0-9]|[3][01])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$";
+
+            if (!String.IsNullOrEmpty(txtSearch))
+            {
+                employees = employees.Where(employee =>
+                    employee.Name.Contains(txtSearch) ||
+                    employee.Age.ToString().Contains(txtSearch) ||
+                    employee.Speciality.Contains(txtSearch) ||
+                    (Regex.IsMatch(txtSearch, patternDate) && employee.EmployementDate == DateTime.Parse(txtSearch)));
+            }
+            if (page > 0)
+            {
+                page = page;
+            }
+            else
+            {
+                page = 1;
+            }
+            int start = (int)(page - 1) * pageSize;
+            ViewBag.pageCurrent = page;
+
+            int totalPage = employees.Count();
+            float totalNumsize = (totalPage / (float)pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+
+            ViewBag.numSize = numSize;
+
+            var dataEmployees = employees.OrderByDescending(x => x.Id).Skip(start).Take(pageSize);
+            List<Employee> listEmployees = new List<Employee>();
+            listEmployees = dataEmployees.ToList();
+
+            return Json(new { data = listEmployees, pageCurrent = page, numSize });
+        }
 
         [Route("Create")]
         public IActionResult Create()
@@ -96,7 +118,6 @@ namespace EmployeesApp.Areas.Employees.Controllers
                 }
             } catch
             {
-                //------------TODO ERROR-------------
                 return NotFound();
             }
 

@@ -65,17 +65,6 @@
                 <form method="post" asp-action="Edit" asp-controller="Todo" asp-route-id="@ViewBag.Id" class="row g-3">
                     <div class="col-md-6">
                         <select required id="inputEmployee" class="form-select" asp-for="EmployeeId">
-                           @* @foreach (var employee in @ViewData["Employees"] as List<Employee>)
-                            {
-                                @if (@employee.Id.Equals(@ViewData["CurrentEmployeeId"]))
-                                {
-                                    <option selected value="@employee.Id">@employee.Name - @employee.Speciality</option>
-                                } else
-                                {
-                                    <option value="@employee.Id">@employee.Name - @employee.Speciality</option>
-                                }
-                                
-                            }*@
                         </select>
                     </div>
 
@@ -105,37 +94,6 @@
                     </div>
                 </form>
             }
-                @*<form asp-controller="Todo" asp-action="Todo" class="row g-3">
-                    <div class="col-md-6">
-                        <select required class="form-select" aria-label="Employee" asp-for="Employee">
-                        @foreach (var employee in @ViewData["Employees"] as List<Employee>)
-                        {
-                            <option value="@employee.Id">@employee.Name - @employee.Speciality</option>
-                        }
-                        </select>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" asp-for="IsCompleted">
-                            <label class="form-check-label" for="flexSwitchCheck">Completed</label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="inputName" class="form-label">Name</label>
-                        <input required type="text" class="form-control" asp-for="Name">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="inputDescription" class="form-label">Description</label>
-                        <input required type="text" class="form-control" asp-for="Description">
-                    </div>  
-
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>*@
             </div>
         </div>
     </body>

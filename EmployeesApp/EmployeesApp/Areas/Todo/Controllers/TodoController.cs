@@ -10,6 +10,7 @@ namespace EmployeesApp.Areas.Todo.Controllers
     [Route("Todo")]
     public class TodoController : BaseController
     {
+        public int pageSize = 5;
         private IRepository<Models.Todo> _todosRepository;
         private IRepository<Employee> _employeesRepository;
         public TodoController(IRepository<Models.Todo> todosRepository, IRepository<Employee> employeesRepository)
@@ -25,11 +26,39 @@ namespace EmployeesApp.Areas.Todo.Controllers
         }
 
         [Route("GetAllTodosAsync")]
-        public async Task<JsonResult> GetAllTodosAsync()
+        public async Task<JsonResult> GetAllTodosAsync(string txtSearch, int? page)
         {
             IEnumerable<Models.Todo> todos = await _todosRepository.GetAllAsync();
             IEnumerable<Employee> employees = await _employeesRepository.GetAllAsync();
-            return Json(new { todos, employees });
+
+            if (!String.IsNullOrEmpty(txtSearch))
+            {
+                todos = todos.Where(todo =>
+                    todo.Name.Contains(txtSearch) ||
+                    todo.Description.ToString().Contains(txtSearch));
+            }
+            if (page <= 0)
+            {
+                page = page;
+            }
+            else
+            {
+                page = 1;
+            }
+            int start = (int)(page - 1) * pageSize;
+            ViewBag.pageCurrent = page;
+
+            int totalPage = todos.Count();
+            float totalNumsize = (totalPage / (float)pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+
+            ViewBag.numSize = numSize;
+
+            var dataTodos = todos.OrderByDescending(x => x.Id).Skip(start).Take(pageSize);
+            List<Models.Todo> listTodos = new List<Models.Todo>();
+            listTodos = dataTodos.ToList();
+
+            return Json(new { todos = listTodos, pageCurrent = page, numSize, employees });
         }
 
         [Route("Create")]
@@ -82,7 +111,6 @@ namespace EmployeesApp.Areas.Todo.Controllers
             }
             catch
             {
-                //------------TODO ERROR-------------
                 return NotFound();
             }
 

@@ -14,12 +14,12 @@
         </div>
                 
         <div class="wrapper">
-            <form asp-action="TodoFilteredList" asp-controller="Todo" class="row">
+            <form class="row">
                 <div class="col-4">
-                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="SearchString">
+                    <input type="text" class="form-control txtSearch" placeholder="Search" aria-label="Search" name="txtSearch">
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button id="search" class="btn btn-primary" type="button">Search</button>
                 </div>
                 <div class="col-2">
                     <a asp-action="TodoList" method="post" class="btn btn-primary" type="button">Clear Filter</a>
@@ -47,6 +47,12 @@
 
                 </tbody>
             </table>
+            <div class="card-footer">
+                <nav>
+                    <ul class="pagination" id="load-pagination">
+                    </ul>
+                </nav>
+            </div>
         </div>
     </body>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

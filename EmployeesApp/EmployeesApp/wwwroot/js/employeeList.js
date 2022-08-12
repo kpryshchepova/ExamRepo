@@ -1,16 +1,19 @@
 ﻿$(document).ready(function () {
-    getEmployeesAsync();
+    getEmployeesAsync(null, 1);
 })
 
-function getEmployeesAsync() {
+function getEmployeesAsync(txtSearch, page) {
     $.ajax({
-        type: "GET",
         url: "/Employee/GetAllEmployeesAsync",
-        contentType: "application/json; charset=utf-8",
-        success: function (employees) {
-
-            $.each(employees, function (i, employee) {
-                $("#employeeTable").append(`<tr>
+        type: "GET",
+        data: { txtSearch: txtSearch, page: page },
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (result) {
+            console.log(result);
+            var str = "";
+            $.each(result.data, function (index, employee) {
+                str += `<tr>
                     <td>${employee.id}</td>
                     <td>${employee.name}</td>
                     <td>${employee.age}</td>
@@ -21,11 +24,47 @@ function getEmployeesAsync() {
                         <a href="/Employee/Edit?id=${employee.id}" class="btn btn-outline-success table-btn" type="button">Edit</a>
                         <a href="/Employee/Delete?id=${employee.id}" class="btn btn-outline-danger table-btn">Delete</a>
                     </td>
-                </tr>`)
-            })
+                </tr>`;
+
+                var paginationString = "";
+                var pageCurrent = result.pageCurrent;
+                var numSize = result.numSize;
+
+                if (pageCurrent > 1) {
+                    var pagePrevious = pageCurrent - 1;
+                    paginationString += `<li class="page-item"><a href="" class="page-link" data-page=${pagePrevious}>Previous</a></li>`;
+                }
+                for (i = 1; i <= numSize; i++) {
+                    if (i === pageCurrent) {
+                        paginationString += `<li class="page-item active"><a href="" class="page-link" data-page=${i}>${pageCurrent}</a></li>`;
+                    } else {
+                        paginationString += `<li class="page-item"><a href="" class="page-link" data-page=${i}>${i}</a></li>`;
+                    }
+                }
+
+                if (pageCurrent > 0 && pageCurrent < numSize) {
+                    var pageNext = pageCurrent + 1;
+                    paginationString += `<li class="page-item"><a href="" class="page-link"  data-page=${pageNext}>Next</a></li>`;
+                }
+
+                $("#load-pagination").html(paginationString);
+            });
+            $("#employeeTable").html(str);
         },
         error: function () {
             alert("Cannot load data for Employees! Please, try later.")
         }
-    })
+    });
 }
+
+$("body").on("click", ".pagination li a", function (event) {
+    event.preventDefault();
+    var page = $(this).attr("data-page");
+    var txtSearch = $(".txtSearch").val();
+    txtSearch ? getEmployeesAsync(txtSearch, page) : getEmployeesAsync(null, page);
+});
+
+$("#search").click(function () {
+    var txtSearch = $(".txtSearch").val();
+    txtSearch ? getEmployeesAsync(txtSearch, 1) : getEmployeesAsync(null, 1);
+});

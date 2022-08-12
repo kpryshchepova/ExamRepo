@@ -9,7 +9,7 @@
 function getTodoAsync(id) {
     var employees = $.ajax({
         type: "GET",
-        url: "/Employee/GetAllEmployeesAsync",
+        url: "/Employee/GetAllEmployeesListAsync",
         contentType: "application/json; charset=utf-8",
         success: function (data) { return data },
         error: function () {
