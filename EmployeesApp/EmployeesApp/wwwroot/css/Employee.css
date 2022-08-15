@@ -27,3 +27,8 @@ table {
 .delete-form {
     display: inline-block;
 }
+
+.avatar-img {
+    width: 35px;
+    height: 35px;
+}

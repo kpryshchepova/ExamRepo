@@ -13,7 +13,7 @@ function getEmployeesAsync(txtSearch, page) {
             var str = "";
             $.each(result.data, function (index, employee) {
                 str += `<tr>
-                    <td>${employee.id}</td>
+                    <td>${getAvatar(employee)}</td>
                     <td>${employee.name}</td>
                     <td>${employee.age}</td>
                     <td>${employee.speciality}</td>
@@ -67,3 +67,9 @@ $("#search").click(function () {
     var txtSearch = $(".txtSearch").val();
     txtSearch ? getEmployeesAsync(txtSearch, 1) : getEmployeesAsync(null, 1);
 });
+
+function getAvatar(employee) {
+    return employee.imageName
+        ? `<img class="rounded-circle avatar-img" src="../img/${employee.imageName}" alt="Avatar">`
+        : `<img class="rounded-circle avatar-img" src="../img/avatar.jpg" alt="Avatar">`;
+}

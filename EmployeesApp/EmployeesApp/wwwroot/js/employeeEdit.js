@@ -17,6 +17,10 @@ function getTodoAsync(id) {
             $("#inputAge").val(employee.age);
             $("#inputSpeciality").val(employee.speciality);
             $("#inputEmployementDate").val(new Date(employee.employementDate).toISOString().split('T')[0]);
+            if (employee.imageName) {
+                $("#avatarImg").removeAttr("src");
+                $("#avatarImg").attr("src", `../img/${employee.imageName}`);
+            }
             enableElements();
         },
         error: function () {
@@ -36,3 +40,9 @@ function enableElements() {
         $(item).removeAttr("disabled");
     });
 }
+
+function showImage(event) {
+    var imageFile = event.target.files[0];
+    $("#avatarImg").removeAttr("src");
+    $("#avatarImg").attr("src", window.URL.createObjectURL(imageFile));
+} 

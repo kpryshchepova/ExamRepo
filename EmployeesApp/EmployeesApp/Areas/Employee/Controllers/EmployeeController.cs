@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Web;
 using EmployeesApp.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using EmployeesApp.Repository;
 using EmployeesApp.Shared;
-
 namespace EmployeesApp.Areas.Employees.Controllers
 {
     [Area("Employee")]
@@ -13,9 +13,11 @@ namespace EmployeesApp.Areas.Employees.Controllers
     {
         public int pageSize = 5;
         private IRepository<Employee> _employeesRepository;
-        public EmployeeController(IRepository<Employee> employeesRepository)
+        private IWebHostEnvironment _webHostEnvironment;
+        public EmployeeController(IRepository<Employee> employeesRepository, IWebHostEnvironment webHost)
         {
             _employeesRepository = employeesRepository;
+            _webHostEnvironment = webHost;
         }
 
         [Route("EmployeeList")]
@@ -76,8 +78,27 @@ namespace EmployeesApp.Areas.Employees.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(Employee employee)
+        public async Task<IActionResult> Create(Employee employee, IFormFile file)
         {
+            employee.ImageName = "";
+            if (file is not null)
+            {
+                string imgExt = Path.GetExtension(file.FileName);
+
+                string fileName = Guid.NewGuid().ToString() + imgExt;
+
+                if (file.Length > 0)
+                {
+                    string path = Path.Combine(_webHostEnvironment.WebRootPath, "img", fileName);
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+
+                employee.ImageName = fileName;
+            }
+
             return await base.Create(employee, _employeesRepository, nameof(EmployeeList));
             
         }
@@ -98,8 +119,28 @@ namespace EmployeesApp.Areas.Employees.Controllers
         }
 
         [HttpPost("Edit")]
-        public async Task<IActionResult> Edit(Employee employee)
+        public async Task<IActionResult> Edit(Employee employee, IFormFile file)
         {
+            employee.ImageName = "";
+            if (file is not null)
+            {
+                string imgExt = Path.GetExtension(file.FileName);
+
+                string fileName = Guid.NewGuid().ToString() + imgExt;
+
+                if (file.Length > 0)
+                {
+                    string path = Path.Combine(_webHostEnvironment.WebRootPath, "img", fileName);
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+
+                employee.ImageName = fileName;
+            }
+            
+
             return await base.Edit(employee, _employeesRepository, nameof(EmployeeList));
         }
 
