@@ -9,7 +9,7 @@ namespace EmployeesApp.Areas.Todo.Controllers
 {
     [Area("Todo")]
     [Route("Todo")]
-    [Authorize]
+    //[Authorize]
     public class TodoController : BaseController
     {
         public int pageSize = 5;

@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+//builder.Services.AddDbContext<ApplicationContext>();
 
 builder.Services.AddTransient<UserRepository, UserRepository>();
 
@@ -37,6 +38,14 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+//using (IServiceScope scope = app.Services.CreateScope())
+//{
+//    using (ApplicationContext context = scope.ServiceProvider.GetRequiredService<ApplicationContext>())
+//    {
+//        context.Database.EnsureCreated();
+//    }
+//}
 
 app.UseHttpsRedirection();
 app.UseRouting();

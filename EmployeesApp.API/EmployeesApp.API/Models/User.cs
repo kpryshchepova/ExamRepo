@@ -2,7 +2,7 @@
 
 namespace EmployeesApp.API.Models;
 
-[Table("Users")]
+//[Table("Users")]
 public class User
 {
     public int Id { get; set; }

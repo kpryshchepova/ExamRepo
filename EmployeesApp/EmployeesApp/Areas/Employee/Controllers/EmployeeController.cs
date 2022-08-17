@@ -11,7 +11,7 @@ namespace EmployeesApp.Areas.Employees.Controllers
 {
     [Area("Employee")]
     [Route("Employee")]
-    [Authorize]
+    //[Authorize]
     public class EmployeeController : BaseController
     {
         public int pageSize = 5;

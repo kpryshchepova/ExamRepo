@@ -6,7 +6,6 @@ using System.Text;
 namespace EmployeesApp.Areas.Register.Controllers
 {
     [Area("Register")]
-    //[Route("Register")]
     public class RegisterController : Controller
     {
         Uri baseAdress = new Uri("https://localhost:7216/api");
@@ -26,13 +25,16 @@ namespace EmployeesApp.Areas.Register.Controllers
         [HttpPost("Register")]
         public ActionResult Register(User user)
         {
-            //string data = JsonConvert.SerializeObject(user);
-            //StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-            //HttpResponseMessage response = client.PostAsync(client.BaseAddress + "/Register", content).Result;
+            string data = JsonConvert.SerializeObject(user);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.PostAsync(client.BaseAddress + "/Register", content).Result;
 
-            //if (response.IsSuccessStatusCode) {
-            //    return RedirectToAction("/Login");
-            //};
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("", "Login");
+            };
+
+            if (Convert.ToInt32(response.StatusCode) == 409) ViewBag.ErrorMessage = "User with this user name is already exists!";
 
             return View();
         }
