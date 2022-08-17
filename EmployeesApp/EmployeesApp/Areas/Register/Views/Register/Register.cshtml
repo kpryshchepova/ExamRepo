@@ -11,11 +11,11 @@
     </head>
     <body>
         <div class="emp-header">
-            <h2>Login</h2>
+            <h2>Register</h2>
         </div>
         <div class="row">    
             <div class="col-4">
-                <form asp-controller="Login" asp-action="Login" class="row g-3">
+                <form asp-controller="Register" asp-action="Register" class="row g-3">
                     <div class="col-md-12">
                         <label for="inputLogin" class="form-label">Login</label>
                         <input required asp-for="UserName" type="text" class="form-control" id="inputLogin">
@@ -26,12 +26,8 @@
                         <input required asp-for="Password" type="password" class="form-control" id="inputPassword">
                     </div>
 
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
-
-                    <div class="col-6">
-                        <a href="/Register" class="btn btn-outline-primary">Register</a>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
             </div>

@@ -5,10 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using EmployeesApp.Repository;
 using EmployeesApp.Shared;
+using Microsoft.AspNetCore.Authorization;
+
 namespace EmployeesApp.Areas.Employees.Controllers
 {
     [Area("Employee")]
     [Route("Employee")]
+    [Authorize]
     public class EmployeeController : BaseController
     {
         public int pageSize = 5;

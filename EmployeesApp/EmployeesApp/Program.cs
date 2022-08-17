@@ -14,7 +14,8 @@ builder.Services.AddTransient<IRepository<Todo>, TodoRepository>();
 
 var app = builder.Build();
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseStaticFiles();
 
 app.MapControllerRoute(

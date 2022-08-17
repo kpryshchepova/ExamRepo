@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeesApp.Models;
 using EmployeesApp.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeesApp.Areas.Todo.Controllers
 {
     [Area("Todo")]
     [Route("Todo")]
+    [Authorize]
     public class TodoController : BaseController
     {
         public int pageSize = 5;
