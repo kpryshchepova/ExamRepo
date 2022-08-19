@@ -1,8 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿namespace EmployeesApp.API.Models;
 
-namespace EmployeesApp.API.Models;
-
-//[Table("Users")]
 public class User
 {
     public int Id { get; set; }

@@ -31,6 +31,12 @@ function getTodoAsync(id) {
         employees[0].forEach(employee => {
             $("#inputEmployee").append(getOption(employee, todo[0].employeeId));
         });
+        if (!todo[0]) {
+            $("#alertError").attr("style", "display: block");
+            return;
+        } else {
+            $("#alertError").attr("style", "display: none");
+        }
         $("#inputName").val(todo[0].name);
         $("#inputDescription").val(todo[0].description);
         if (todo[0].isCompleted) {

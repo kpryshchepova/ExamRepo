@@ -15,8 +15,8 @@ public class BaseController : Controller
             return RedirectToAction(redirection);
         }
         catch
-        {//------------TODO ERROR-------------
-            return NotFound();
+        {
+            return RedirectToAction("Error", "Error");
         }
 
     }
@@ -32,8 +32,7 @@ public class BaseController : Controller
         }
         catch
         {
-            //------------TODO ERROR-------------
-            return NotFound();
+            return RedirectToAction("Error", "Error");
         }
     }
 

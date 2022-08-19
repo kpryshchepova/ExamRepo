@@ -3,6 +3,7 @@
 namespace EmployeesApp.Areas.Error.Controllers;
 
 [Area("Error")]
+[Route("Error")]
 public class ErrorController : Controller
 {
     [Route("NotFound")]
@@ -11,8 +12,14 @@ public class ErrorController : Controller
         return View();
     }
 
+    [Route("Unauthorised")]
+    public IActionResult Unauthorised()
+    {
+        return View();
+    }
+
     [Route("Error")]
-    public IActionResult OtherError()
+    public IActionResult Error()
     {
         return View();
     }

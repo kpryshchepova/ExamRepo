@@ -1,4 +1,4 @@
-﻿@model EmployeesApp.Models.Employee
+﻿@model EmployeesApp.Models.Employee;
 <!DOCTYPE html>
 
 <html lang="en">
@@ -22,6 +22,9 @@
 
 
     <div class="row">
+        <div id="alertError" class="col-12 alert alert-danger" style="display: none" role="alert">
+            I don't know such Employee. Please, check your request.
+        </div>
         @if (@ViewBag.Id == null)
         {
             <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Employee" class="row g-3">

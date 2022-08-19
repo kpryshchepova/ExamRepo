@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     getEmployeesAsync(null, 1);
-})
+});
 
 function getEmployeesAsync(txtSearch, page) {
     $.ajax({

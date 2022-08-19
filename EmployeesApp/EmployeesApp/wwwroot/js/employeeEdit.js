@@ -13,6 +13,12 @@ function getTodoAsync(id) {
         data: {id: id},
         contentType: "application/json; charset=utf-8",
         success: function (employee) {
+            if (!employee) {
+                $("#alertError").attr("style", "display: block");
+                return;
+            } else {
+                $("#alertError").attr("style", "display: none");
+            }
             $("#inputName").val(employee.name);
             $("#inputAge").val(employee.age);
             $("#inputSpeciality").val(employee.speciality);

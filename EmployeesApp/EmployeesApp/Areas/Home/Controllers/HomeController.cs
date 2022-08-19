@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeesApp.Areas.Home.Controllers
+namespace EmployeesApp.Areas.Home.Controllers;
+
+[Area("Home")]
+[AllowAnonymous]
+public class HomeController : Controller
 {
-    [Area("Home")]
-    
-    public class HomeController : Controller
-    {
-        [Route("")]
-        [Route("Index")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+    [Route("")]
+    [Route("Index")]
 
+    public IActionResult Index()
+    {
+        return View();
     }
+
 }
